@@ -1,0 +1,56 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.javalab'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+// configuration 블럭
+// compileOnly : 컴파일 시에만 사용되는 의존성을 추가하는 블럭
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+// 의존성 추가 블럭
+// implementation : 그레이들의 의존성을 추가해주는 메소드(컴파일 + 런타임 모두 적용)
+// 'org.projectlombok:lombok' : 의존성 추가 문자열, implementation의 파라미터
+// implementation 'org.projectlombok:lombok': 롬복 의존성을 다운로드 해라.
+// annotationProcessor 메소드 : 컴파일시 어노테이션을 처리하기 위한 도구
+// - 자바 컴파일러가 소스 코드를 컴파일할 때 어노테이션 프로세서를 사용하여 어노테이션이
+//    붙은 소스 코드를 처리(해석)하는 도구
+dependencies { // 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// spring-boot-starter-web : 스프링 부트에서 웹 애플리케이션을 개발할 때 필요한 의존성을 추가
+	// - 스프링 웹 MVC, Apache Tomcat, Jackson JSON 처리 라이브러리 등을 포함
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 이 설정은 Lombok 라이브러리를 컴파일 타임에만 사용할 수 있도록 합니다.
+	// compileOnly 블록에 추가된 라이브러리는 컴파일 시에만 사용되며 런타임 시에는 사용되지 않습니다.
+	compileOnly 'org.projectlombok:lombok'
+	// 개발시에만 사용하는 의존성
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// annotationProcessor : 자바 컴파일러가 솟크 도를 컴파일할 때 어노테이션 프로세서르 ㄹ사용하여
+	// 어노테이션이 붙은 소스 코드를 처리(해석)한다.
+	annotationProcessor 'org.projectlombok:lombok' // 롬복 의존성 추가
+	// 롬복을 테스트 시에만 사용하고, 빌드 시에는 사용하지 않도록 설정
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// MariaDB 의존성
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
