@@ -1,0 +1,55 @@
+
+plugins { // 플러그인 추가, 플러그인은 빌드 스크립트에 필요한 도구를 제공
+	id 'java'   // Java 플러그인 추가, Java 프로젝트를 위한 기본적인 설정을 제공
+	id 'org.springframework.boot' version '3.3.2'   // 스프링 부트 플러그인 추가, 스프링 부트 프로젝트를 위한 설정을 제공
+	id 'io.spring.dependency-management' version '1.1.6'   // 스프링 부트 의존성 관리 플러그인 추가, 스프링 부트 프로젝트의 의존성을 관리
+}
+
+group = 'com.javalab'   // 프로젝트 그룹명
+version = '0.0.1-SNAPSHOT'   // 프로젝트 버전
+
+java {   // 자바 설정
+	toolchain {   // 툴체인 설정, 툴체인은 빌드 시 사용할 JDK 버전을 설정
+		languageVersion = JavaLanguageVersion.of(17)   // 사용할 자바 버전 설정
+	}
+}
+
+configurations {   // 설정 추가, 설정은 프로젝트의 의존성을 관리
+	compileOnly {   // 컴파일 시에만 사용하는 의존성 설정
+		extendsFrom annotationProcessor   // annotationProcessor 설정을 상속, annotationProcessor 설정은 컴파일 시에만 사용하는 의존성 설정
+	}
+}
+
+repositories {   // 저장소 추가, 저장소는 의존성을 다운로드 받을 위치를 설정
+	mavenCentral()   // Maven Central 저장소 추가, Maven Central 저장소에서 의존성을 다운로드 받음
+}
+
+dependencies { // 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'   // 스프링 부트 스타터 Thymeleaf 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-web'   // 스프링 부트 스타터 Web 의존성 추가
+	compileOnly 'org.projectlombok:lombok'   // 롬복 의존성 추가, 컴파일 시에만 사용
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'   // 스프링 부트 DevTools 의존성 추가, 개발 시에만 사용
+	annotationProcessor 'org.projectlombok:lombok' // 롬복 의존성 추가
+	// 롬복을 테스트 시에만 사용하고, 빌드 시에는 사용하지 않도록 설정
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 부트 스타터 Test 의존성 추가
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// 마리아디비(JDBC드라이버) 의존성
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	// 스프링 부트 Validation 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// 타임리프 레이아웃 의존성
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+	// 스프링 부트 스타터 Data JPA 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// SQL 로그 의존성(log4jdbc-log4j2-jdbc4.1)
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	// Test Case에서 롬복(lombok) 사용
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+}
+
+tasks.named('test') {   // test 태스크 설정, test 태스크는 테스트를 실행
+	useJUnitPlatform()   // JUnit 플랫폼 사용
+}
