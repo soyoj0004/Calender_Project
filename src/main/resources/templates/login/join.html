@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .email-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0000ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<form action="#" method="post" enctype="multipart/form-data">
+    <h2>회원가입</h2>
+
+    <label for="email_local">이메일</label>
+    <div class="email-wrapper">
+        <input type="text" id="email_local" name="email_local" placeholder="example" required>
+        <span>@</span>
+        <label for="email_domain"></label><select id="email_domain" name="email_domain">
+            <option value="gmail.com">gmail.com</option>
+            <option value="naver.com">naver.com</option>
+            <option value="kakao.com">kakao.com</option>
+            <option value="daum.net">daum.net</option>
+            <option value="직접 입력">직접 입력</option>
+        </select>
+    </div>
+
+    <label for="name">이름</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" name="password" required>
+
+    <label>성별</label>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male" style="display: inline;">남성</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female" style="display: inline;">여성</label>
+
+    <div style="margin-bottom: 20px;"></div>
+
+    <label for="dob">생년월일</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="profile_picture">프로필 사진 첨부</label>
+    <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+
+    <label for="bio">자기소개</label>
+    <textarea id="bio" name="bio" rows="4" placeholder="자기소개를 입력하세요"></textarea>
+
+    <button type="submit">가입하기</button>
+</form>
+
+<script>
+    const emailDomainSelect = document.getElementById('email_domain');
+    const emailDomainInput = document.createElement('input');
+    emailDomainInput.type = 'text';
+    emailDomainInput.placeholder = '직접 입력';
+    emailDomainInput.style.display = 'none';
+    emailDomainInput.style.width = '100%';
+    emailDomainSelect.parentNode.appendChild(emailDomainInput);
+
+    emailDomainSelect.addEventListener('change', function() {
+        if (this.value === '직접 입력') {
+            emailDomainInput.style.display = 'block';
+            emailDomainInput.name = 'email_domain_custom';
+            emailDomainSelect.style.display = 'none';
+            emailDomainInput.required = true;
+        } else {
+            emailDomainInput.style.display = 'none';
+            emailDomainInput.required = false;
+            emailDomainSelect.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
