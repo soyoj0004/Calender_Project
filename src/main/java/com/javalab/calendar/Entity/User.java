@@ -33,7 +33,7 @@ public class User implements Serializable {
 
     private static  final long serialVersionUID = 1L;
 
-    // @Id : 기본키, 영속영역에서 식별자로 사용, 테이블에서는 PK로 사용
+    // @Id : 기본키, 영속영역에서 식별자로 사용, 테이블에서는 PK로 사용한다
     // @Column(name = "user_id", length = 50) : member_id 컬럼명, 길이 50
 
     //@Id
