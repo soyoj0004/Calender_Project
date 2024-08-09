@@ -72,7 +72,7 @@ public class User implements Serializable {
     @Column(columnDefinition = "TEXT", nullable = true)
     private String bio;
 
-    //친구코드
+    //친구코드 ~
     @Column(name = "friend_id", nullable = true)
     private int friendId;
 
