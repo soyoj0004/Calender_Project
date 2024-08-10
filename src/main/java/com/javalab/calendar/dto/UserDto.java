@@ -12,6 +12,7 @@ import java.util.Date;
 /**
  * 클라이언트와 서버 간의 데이터 전송을 위한 객체로 입력 검증이나 데이터 형식 변환을 수행합니다.
  * 민감한 정보를 포함하지 않도록 설계하며, 필요한 데이터만 포함하여 보안성을 높입니다.
+ * @author sujin
  */
 @AllArgsConstructor
 @NoArgsConstructor
